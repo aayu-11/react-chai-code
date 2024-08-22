@@ -12,6 +12,7 @@ export const todoSlice = createSlice({
       const todo = {
         id: nanoid(),
         text: action.payload,
+        completed: false,
       };
       state.todos.push(todo);
     },
