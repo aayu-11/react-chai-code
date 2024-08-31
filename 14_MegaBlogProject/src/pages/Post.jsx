@@ -39,6 +39,10 @@ export default function Post() {
     });
   };
 
+  const editPost = () => {
+    navigate(`/edit-post/${post.$id}`);
+  };
+
   const handleDeleteClick = () => {
     setShowConfirmDialog(true);
   };
@@ -70,23 +74,27 @@ export default function Post() {
         {isAuthor && (
           <div className="mt-4 mr-4 left-6 top-6">
             <Link to={`/edit-post/${post.$id}`}>
-              <Button bgColor="bg-gray-500" className="mr-3">
+              <Button
+                bgColor="bg-slate-500"
+                className="mr-3"
+                onClick={editPost}
+              >
                 Edit
               </Button>
             </Link>
-            <Button bgColor="bg-gray-800" onClick={handleDeleteClick}>
+            <Button bgColor="bg-slate-800" onClick={handleDeleteClick}>
               Delete
             </Button>
           </div>
         )}
         {showConfirmDialog && (
-          <div className="fixed inset-0 z-50 h-full flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-gray-400  p-6 rounded-lg shadow-lg">
+          <div className="fixed inset-0 z-50 h-full flex items-center justify-center bg-slate bg-opacity-50">
+            <div className="bg-slate-400  p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
               <p className="mb-4">Are you sure you want to delete this post?</p>
               <div className="flex justify-end">
                 <Button
-                  bgColor="bg-gray-500"
+                  bgColor="bg-slate-500"
                   className="mr-3"
                   onClick={handleCancelDelete}
                 >

@@ -88,6 +88,12 @@ export default function PostForm({ post }) {
           label="title :"
           placeholder="title"
           className="mb-4"
+          onFocus={() =>
+            setValue(
+              "slug",
+              slugTransform(getValues("title"), { shouldValidate: true })
+            )
+          }
           {...register("title", { required: true })}
         />
         <Input
@@ -96,7 +102,7 @@ export default function PostForm({ post }) {
           className="mb-4"
           {...register("slug", { required: true })}
           onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
+            setValue("slug", slugTransform(getValues("slug")), {
               shouldValidate: true,
             });
           }}
@@ -119,7 +125,7 @@ export default function PostForm({ post }) {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={fileService.getImagePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />
