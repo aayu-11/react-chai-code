@@ -10,11 +10,13 @@ export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const userData = useSelector((state) => state.userData);
   // console.log("UserData in Post : ", userData);
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const isAuthor = post && userData ? post.userID === userData.$id : false;
+  console.log("isAuthor in Post : ", isAuthor);
 
   useEffect(() => {
     if (slug) {
@@ -35,6 +37,19 @@ export default function Post() {
     });
   };
 
+  const handleDeleteClick = () => {
+    setShowConfirmDialog(true); // Show confirmation dialog
+  };
+
+  const handleConfirmDelete = () => {
+    setShowConfirmDialog(false);
+    deletePost();
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmDialog(false);
+  };
+
   return post ? (
     <div className="py-8">
       <Container>
@@ -42,26 +57,26 @@ export default function Post() {
           <img
             src={fileService.getImagePreview(post.featuredImage)}
             alt={post.title}
-            className="h-auto max-w-full rounded-lg shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
+            className="h-auto max-w-full  rounded-lg shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
           />
-
-          {isAuthor && (
-            <div className="absolute right-6 top-6">
-              <Link to={`/edit-post/${post.$id}`}>
-                <Button bgColor="bg-green-500" className="mr-3">
-                  Edit
-                </Button>
-              </Link>
-              <Button bgColor="bg-red-500" onClick={deletePost}>
-                Delete
-              </Button>
-            </div>
-          )}
         </div>
+
         <div className="w-full mb-6">
           <h1 className="text-2xl font-bold">{post.title}</h1>
         </div>
         <div className="browser-css">{parse(post.content)}</div>
+        {isAuthor && (
+          <div className="mt-4 mr-4 left-6 top-6">
+            <Link to={`/edit-post/${post.$id}`}>
+              <Button bgColor="bg-gray-500" className="mr-3">
+                Edit
+              </Button>
+            </Link>
+            <Button bgColor="bg-gray-800" onClick={deletePost}>
+              Delete
+            </Button>
+          </div>
+        )}
       </Container>
     </div>
   ) : null;
