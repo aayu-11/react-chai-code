@@ -40,7 +40,7 @@ export default function Post() {
   };
 
   const handleDeleteClick = () => {
-    setShowConfirmDialog(true); // Show confirmation dialog
+    setShowConfirmDialog(true);
   };
 
   const handleConfirmDelete = () => {
@@ -79,27 +79,27 @@ export default function Post() {
             </Button>
           </div>
         )}
-      </Container>
-      {showConfirmDialog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-gray-400 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
-            <p className="mb-4">Are you sure you want to delete this post?</p>
-            <div className="flex justify-end">
-              <Button
-                bgColor="bg-gray-500"
-                className="mr-3"
-                onClick={handleCancelDelete}
-              >
-                Cancel
-              </Button>
-              <Button bgColor="bg-red-500" onClick={handleConfirmDelete}>
-                Confirm Delete
-              </Button>
+        {showConfirmDialog && (
+          <div className="fixed inset-0 z-50 h-full flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-gray-400  p-6 rounded-lg shadow-lg">
+              <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
+              <p className="mb-4">Are you sure you want to delete this post?</p>
+              <div className="flex justify-end">
+                <Button
+                  bgColor="bg-gray-500"
+                  className="mr-3"
+                  onClick={handleCancelDelete}
+                >
+                  Cancel
+                </Button>
+                <Button bgColor="bg-red-500" onClick={handleConfirmDelete}>
+                  Confirm Delete
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Container>
     </div>
   ) : loading ? (
     <Container>
