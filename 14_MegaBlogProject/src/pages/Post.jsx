@@ -10,6 +10,7 @@ export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const userData = useSelector((state) => state.userData);
@@ -24,6 +25,7 @@ export default function Post() {
         console.log("Post in Post page:", post);
         if (post) setPost(post);
         else navigate("/");
+        setLoading(false);
       });
     } else navigate("/");
   }, [slug, navigate]);
@@ -72,12 +74,36 @@ export default function Post() {
                 Edit
               </Button>
             </Link>
-            <Button bgColor="bg-gray-800" onClick={deletePost}>
+            <Button bgColor="bg-gray-800" onClick={handleDeleteClick}>
               Delete
             </Button>
           </div>
         )}
       </Container>
+      {showConfirmDialog && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gray-400 p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
+            <p className="mb-4">Are you sure you want to delete this post?</p>
+            <div className="flex justify-end">
+              <Button
+                bgColor="bg-gray-500"
+                className="mr-3"
+                onClick={handleCancelDelete}
+              >
+                Cancel
+              </Button>
+              <Button bgColor="bg-red-500" onClick={handleConfirmDelete}>
+                Confirm Delete
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  ) : loading ? (
+    <Container>
+      <div className="text-2xl font-bold m-4">Loading...</div>
+    </Container>
   ) : null;
 }
