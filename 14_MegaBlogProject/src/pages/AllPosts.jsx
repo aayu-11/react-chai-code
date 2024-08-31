@@ -13,6 +13,7 @@ export default function AllPosts() {
       .then((posts) => {
         if (posts) {
           setPosts(posts.documents);
+          console.log("post in AllPost page:", posts);
         }
       })
       .finally(() => {
@@ -20,18 +21,18 @@ export default function AllPosts() {
       });
   }, []);
   return !loading ? (
-    <div className="py-8 w-full h-full">
+    <div className="mt-4 w-full h-auto lg:h-screen">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
             <div key={post.$id}>
-              <PostCard post={post} />
+              <PostCard {...post} />
             </div>
           ))}
         </div>
       </Container>
     </div>
   ) : (
-    <div className="w-full h-full">Loading...</div>
+    <div className="w-full h-full font-bold text-2xl m-2">Loading...</div>
   );
 }

@@ -11,13 +11,15 @@ export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.auth.userData);
+  const userData = useSelector((state) => state.userData);
+  // console.log("UserData in Post : ", userData);
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
+        console.log("Post in Post page:", post);
         if (post) setPost(post);
         else navigate("/");
       });
@@ -27,7 +29,7 @@ export default function Post() {
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
-        fileService.deletefile(post.featuredImage);
+        fileService.deleteFile(post.featuredImage);
         navigate("/");
       }
     });
@@ -36,11 +38,11 @@ export default function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+        <div className="w-full sm:w-2/3 lg:w-1/2 flex justify-center mb-4 relative  rounded-xl ">
           <img
-            src={fileService.getFilePreview(post.featuredImage)}
+            src={fileService.getImagePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl"
+            className="h-auto max-w-full rounded-lg shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
           />
 
           {isAuthor && (

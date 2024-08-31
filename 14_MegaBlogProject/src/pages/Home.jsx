@@ -12,6 +12,7 @@ export default function Home() {
         if (posts) {
           setPosts(posts.documents);
         }
+        console.log(posts);
         setLoading(false);
       })
       .catch(() => {
@@ -32,11 +33,11 @@ export default function Home() {
     );
   }
   return !loading ? (
-    <div className="w-full">
+    <div className="mt-4 w-full h-auto lg:h-screen">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
+            <div key={post.$id}>
               <PostCard {...post} />
             </div>
           ))}
@@ -45,7 +46,7 @@ export default function Home() {
     </div>
   ) : (
     <Container>
-      <div className="w-full flex flex-wrap">
+      <div className="w-full flex flex-wrap m-2">
         <h1 className="font-bold text-2xl hover:text-gray-500">Loading...</h1>
       </div>
     </Container>

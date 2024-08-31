@@ -24,9 +24,9 @@ export class FileService {
     }
   }
 
-  async deleteFile(fileID) {
+  async deleteFile(fileId) {
     try {
-      await this.bucket.deleteFile(conf.appwriteBucketID, fileID);
+      await this.bucket.deleteFile(conf.appwriteBucketID, fileId);
       return true;
     } catch (error) {
       console.log("FileService :: deleteFile :: error", error);
@@ -34,31 +34,31 @@ export class FileService {
     }
   }
 
-  async getFile(fileID) {
+  async getFile(fileId) {
     try {
-      return await this.bucket.getFile(conf.appwriteBucketID, fileID);
+      return await this.bucket.getFile(conf.appwriteBucketID, fileId);
     } catch (error) {
       console.log("FileService :: getFile :: error", error);
       return false;
     }
   }
 
-  getFilePreview(fileID) {
-    return this.bucket.getFilePreview(conf.appwriteBucketID, fileID);
+  getImagePreview(fileId) {
+    return this.bucket.getFilePreview(conf.appwriteBucketID, fileId);
   }
 
-  async updateFile(fileID, file) {
+  async updateFile(fileId, file) {
     try {
-      return await this.bucket.updateFile(conf.appwriteBucketID, fileID, file);
+      return await this.bucket.updateFile(conf.appwriteBucketID, fileId, file);
     } catch (error) {
       console.log("FileService :: updateFile :: error", error);
       return false;
     }
   }
 
-  downLoadFile(fileID) {
+  downLoadFile(fileId) {
     try {
-      return this.bucket.getFileDownload(conf.appwriteBucketID, fileID);
+      return this.bucket.getFileDownload(conf.appwriteBucketID, fileId);
     } catch (error) {
       console.log("FileService :: downLoadFile :: error", error);
       return false;
